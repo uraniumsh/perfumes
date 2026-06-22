@@ -9,7 +9,7 @@
     --accent: #0071e3;
     --success: #25D366; 
     --danger: #ff3b30;
-    --border-radius: 12px;
+    --border-radius: 2px;
 }
 
 [data-theme="dark"] {
