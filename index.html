@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Catálogo | Glassmorphism</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div id="bottom-sheet" class="bottom-sheet glass">
+        <div class="sheet-header">
+            <h3>Menú</h3>
+            <button id="close-menu" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <ul class="sheet-menu">
+            <li><a href="#"><i class="fa-solid fa-house"></i> Inicio</a></li>
+            
+            <li class="has-submenu" id="catalog-dropdown">
+                <a href="#" class="dropdown-trigger">
+                    <span><i class="fa-solid fa-book-open"></i> Catálogos</span>
+                    <i class="fa-solid fa-chevron-down chevron"></i>
+                </a>
+                <ul class="submenu" id="catalog-submenu">
+                    <li><a href="#">Catálogo General</a></li>
+                    <li><a href="#">Línea Femenina</a></li>
+                    <li><a href="#">Perfumería Árabe</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="#"><i class="fa-solid fa-tags"></i> Combos</a></li>
+            <li><a href="#" id="btn-config"><i class="fa-solid fa-gear"></i> Configuración</a></li>
+            <li><a href="#"><i class="fa-solid fa-circle-info"></i> Sobre nosotros</a></li>
+        </ul>
+    </div>
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <header class="apple-header glass">
+        <div class="header-left">
+            <button class="nav-link" id="btn-comienza">Comienza ya</button>
+        </div>
+        <div class="header-center">
+            <button class="logo-btn">P.</button> 
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="btn-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge">0</span>
+            </button>
+            <button class="icon-btn" id="btn-share"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+            <button class="icon-btn" id="btn-hamburger"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <section class="hero-video glass-hero">
+        <video autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-perfume-bottle-splashing-in-water-31718-large.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay glass">
+            <h1>Descubre tu esencia</h1>
+        </div>
+    </section>
+
+    <main class="catalog-main">
+        <div class="section-title">
+            <h2>Más Vistos</h2>
+        </div>
+
+        <div id="product-grid" class="product-grid">
+            </div>
+
+        <div id="pagination" class="pagination">
+            </div>
+    </main>
+
+    <div id="product-modal" class="modal glass-modal">
+        <div class="modal-content glass">
+            <button id="close-modal" class="icon-btn close-modal glass"><i class="fa-solid fa-xmark"></i></button>
+            <img id="modal-img" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modal-title"></h3>
+                <p id="modal-price" class="price"></p>
+                <p id="modal-desc" class="description"></p>
+                <button class="buy-btn glass-btn">Añadir al carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="config-modal" class="modal glass-modal">
+        <div class="modal-content glass" style="max-width: 350px;">
+            <div class="sheet-header">
+                <h3>Configuración</h3>
+                <button id="close-config" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="config-options">
+                <div class="setting-item">
+                    <span>Modo Oscuro</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
