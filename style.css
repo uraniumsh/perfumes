@@ -181,6 +181,9 @@ input:checked + .slider:before { transform: translateX(22px); }
     gap: 8px; 
     margin-top: 16px; 
 }
+.admin-form-title{
+    margin-bottom: 4px;
+}
 .admin-item { 
     display: flex; 
     justify-content: space-between; 
