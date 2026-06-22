@@ -3,45 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Catálogo | Glassmorphism</title>
+    <title>Catálogo Pro | Glassmorphism</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
     <div class="bg-shape shape-1"></div>
     <div class="bg-shape shape-2"></div>
 
-    <div id="bottom-sheet" class="bottom-sheet glass">
-        <div class="sheet-header">
-            <h3>Menú</h3>
-            <button id="close-menu" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <ul class="sheet-menu">
-            <li><a href="#"><i class="fa-solid fa-house"></i> Inicio</a></li>
-            
-            <li class="has-submenu" id="catalog-dropdown">
-                <a href="#" class="dropdown-trigger">
-                    <span><i class="fa-solid fa-book-open"></i> Catálogos</span>
-                    <i class="fa-solid fa-chevron-down chevron"></i>
-                </a>
-                <ul class="submenu" id="catalog-submenu">
-                    <li><a href="#">Catálogo General</a></li>
-                    <li><a href="#">Línea Femenina</a></li>
-                    <li><a href="#">Perfumería Árabe</a></li>
-                </ul>
-            </li>
-            
-            <li><a href="#"><i class="fa-solid fa-tags"></i> Combos</a></li>
-            <li><a href="#" id="btn-config"><i class="fa-solid fa-gear"></i> Configuración</a></li>
-            <li><a href="#"><i class="fa-solid fa-circle-info"></i> Sobre nosotros</a></li>
-        </ul>
-    </div>
-    <div id="menu-overlay" class="menu-overlay"></div>
-
+    <!-- HEADER -->
     <header class="apple-header glass">
         <div class="header-left">
-            <button class="nav-link" id="btn-comienza">Comienza ya</button>
+            <button class="nav-link btn-open-auth">Comienza ya</button>
         </div>
         <div class="header-center">
             <button class="logo-btn">P.</button> 
@@ -49,7 +22,7 @@
         <div class="header-right">
             <button class="icon-btn" id="btn-cart">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span class="cart-badge">0</span>
+                <span class="cart-badge" id="cart-count">0</span>
             </button>
             <button class="icon-btn" id="btn-share"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
             <button class="icon-btn" id="btn-hamburger"><i class="fa-solid fa-bars"></i></button>
@@ -66,44 +39,125 @@
     </section>
 
     <main class="catalog-main">
-        <div class="section-title">
-            <h2>Más Vistos</h2>
-        </div>
-
-        <div id="product-grid" class="product-grid">
-            </div>
-
-        <div id="pagination" class="pagination">
-            </div>
+        <div class="section-title"><h2>Más Vistos</h2></div>
+        <div id="product-grid" class="product-grid"></div>
+        <div id="pagination" class="pagination"></div>
     </main>
 
-    <div id="product-modal" class="modal glass-modal">
-        <div class="modal-content glass">
-            <button id="close-modal" class="icon-btn close-modal glass"><i class="fa-solid fa-xmark"></i></button>
-            <img id="modal-img" src="" alt="">
-            <div class="modal-info">
-                <h3 id="modal-title"></h3>
-                <p id="modal-price" class="price"></p>
-                <p id="modal-desc" class="description"></p>
-                <button class="buy-btn glass-btn">Añadir al carrito</button>
+    <!-- MENÚ INFERIOR -->
+    <div id="bottom-sheet" class="bottom-sheet glass">
+        <div class="sheet-header">
+            <h3>Menú</h3>
+            <button class="icon-btn btn-close-menu"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <ul class="sheet-menu">
+            <li><a href="#" class="btn-close-menu"><i class="fa-solid fa-house"></i> Inicio</a></li>
+            <li class="has-submenu" id="catalog-dropdown">
+                <a href="#" class="dropdown-trigger">
+                    <span><i class="fa-solid fa-book-open"></i> Catálogos</span>
+                    <i class="fa-solid fa-chevron-down chevron"></i>
+                </a>
+                <ul class="submenu" id="catalog-submenu">
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Femenino</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="btn-open-auth"><i class="fa-solid fa-user-plus"></i> Registrarse / Iniciar Sesión</a></li>
+            <li><a href="#" id="btn-admin-access" style="display: none; color: var(--accent);"><i class="fa-solid fa-screwdriver-wrench"></i> Panel Admin</a></li>
+            <li><a href="#" id="btn-config"><i class="fa-solid fa-gear"></i> Configuración</a></li>
+        </ul>
+    </div>
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <!-- PAGE-IN-PAGE: VISTA DE PRODUCTO -->
+    <div id="page-product" class="side-page glass">
+        <div class="page-header">
+            <button class="icon-btn btn-back" data-target="page-product"><i class="fa-solid fa-chevron-left"></i></button>
+            <h3>Detalle</h3>
+            <div style="width: 24px;"></div>
+        </div>
+        <div class="page-content">
+            <img id="view-img" src="" alt="" class="product-view-img">
+            <h2 id="view-title" class="view-title"></h2>
+            <p id="view-price" class="view-price"></p>
+            <p id="view-desc" class="view-desc"></p>
+            
+            <div class="purchase-actions">
+                <div class="qty-selector">
+                    <button id="btn-minus">-</button>
+                    <span id="view-qty">1</span>
+                    <button id="btn-plus">+</button>
+                </div>
+                <button id="btn-add-cart" class="primary-btn">Añadir al carrito</button>
+            </div>
+            <button id="btn-wa-single" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- PAGE-IN-PAGE: CARRITO -->
+    <div id="page-cart" class="side-page glass">
+        <div class="page-header">
+            <button class="icon-btn btn-back" data-target="page-cart"><i class="fa-solid fa-chevron-left"></i></button>
+            <h3>Tu Carrito</h3>
+            <div style="width: 24px;"></div>
+        </div>
+        <div class="page-content" style="display: flex; flex-direction: column; height: calc(100vh - 60px);">
+            <div id="cart-items" class="cart-items-container"></div>
+            <div class="cart-footer">
+                <div class="cart-total"><span>Total:</span> <span id="cart-total-price">$ 0</span></div>
+                <button id="btn-wa-cart" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Comprar Carrito por WA</button>
             </div>
         </div>
     </div>
 
-    <div id="config-modal" class="modal glass-modal">
-        <div class="modal-content glass" style="max-width: 350px;">
+    <!-- PAGE-IN-PAGE: AUTH (Login/Registro) -->
+    <div id="page-auth" class="side-page glass">
+        <div class="page-header">
+            <button class="icon-btn btn-back" data-target="page-auth"><i class="fa-solid fa-chevron-left"></i></button>
+            <h3>Cuenta</h3>
+            <div style="width: 24px;"></div>
+        </div>
+        <div class="page-content auth-form">
+            <h2>Iniciar Sesión</h2>
+            <p>Admin de prueba -> User: admin | Pass: admin</p>
+            <input type="text" id="auth-user" placeholder="Usuario" class="form-input">
+            <input type="password" id="auth-pass" placeholder="Contraseña" class="form-input">
+            <button id="btn-login" class="primary-btn">Ingresar</button>
+        </div>
+    </div>
+
+    <!-- PAGE-IN-PAGE: ADMIN PANEL -->
+    <div id="page-admin" class="side-page glass">
+        <div class="page-header">
+            <button class="icon-btn btn-back" data-target="page-admin"><i class="fa-solid fa-chevron-left"></i></button>
+            <h3>Panel Admin</h3>
+            <button class="icon-btn" id="btn-logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+        <div class="page-content">
+            <div class="admin-form glass">
+                <h4 id="admin-form-title">Publicar Producto</h4>
+                <input type="hidden" id="admin-id">
+                <input type="text" id="admin-img" placeholder="URL de Imágenes (separadas por coma)" class="form-input">
+                <input type="text" id="admin-name" placeholder="Nombre del Producto" class="form-input">
+                <input type="number" id="admin-price" placeholder="Precio (Ej: 450000)" class="form-input">
+                <textarea id="admin-desc" placeholder="Descripción..." class="form-input"></textarea>
+                <button id="btn-save-product" class="primary-btn">Guardar Producto</button>
+            </div>
+            <h4>Tus Productos</h4>
+            <div id="admin-product-list" class="admin-list"></div>
+        </div>
+    </div>
+
+    <!-- Modal Configuración -->
+    <div id="config-modal" class="modal glass">
+        <div class="modal-content glass">
             <div class="sheet-header">
                 <h3>Configuración</h3>
                 <button id="close-config" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="config-options">
-                <div class="setting-item">
-                    <span>Modo Oscuro</span>
-                    <label class="switch">
-                        <input type="checkbox" id="theme-toggle">
-                        <span class="slider"></span>
-                    </label>
-                </div>
+            <div class="setting-item">
+                <span>Modo Oscuro</span>
+                <label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label>
             </div>
         </div>
     </div>
