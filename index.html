@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Catálogo Pro | Glassmorphism</title>
+    <title>Uranium Digital | Catálogo</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -15,33 +15,34 @@
 
     <header class="apple-header glass">
         <div class="header-left">
-            <button class="nav-link" id="btn-header-auth" style="display:none;">Comienza ya</button>
+            <button class="nav-link" id="btn-header-auth" style="display:none;">Ingresar</button>
         </div>
         <div class="header-center">
-            <button class="logo-btn">P.</button> 
+            <button class="logo-btn">U.</button> 
         </div>
         <div class="header-right">
             <button class="icon-btn" id="btn-cart">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="cart-badge" id="cart-count">0</span>
             </button>
-            <button class="icon-btn" id="btn-share"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
             <button class="icon-btn" id="btn-hamburger"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
 
     <section class="hero-video glass-hero">
+        <!-- Puedes cambiar este gif por uno relacionado a streaming o tu logo -->
         <video autoplay loop muted playsinline>
             <source src="https://file.notion.so/f/f/bdc8c897-a6e3-8160-bbf4-000399ed486a/838b3652-2e60-4d47-ba32-b50f706ec187/95e357f18d293484239546b64af2f9e4.gif?table=block&id=37c8c897-a6e3-80db-8a0b-f238f01b2458&spaceId=bdc8c897-a6e3-8160-bbf4-000399ed486a&expirationTimestamp=1782172800000&signature=Vb5U8D_8rgFZ_MRgkWfYsXz2b3Fke-xIcM8ajJKdpcA">
         </video>
         <div class="video-overlay glass">
-            <h1>Descubre tu esencia</h1>
+            <h1>Uranium Digital</h1>
         </div>
     </section>
 
     <main class="catalog-main">
-        <div class="section-title"><h2>Catálogo de Productos</h2></div>
+        <div class="section-title"><h2 id="current-category-title">Catálogo: Todos</h2></div>
         <div id="product-grid" class="product-grid"></div>
+        <div id="pagination-controls" class="pagination-controls"></div>
     </main>
 
     <div id="bottom-sheet" class="bottom-sheet glass">
@@ -50,19 +51,18 @@
             <button class="icon-btn btn-close-menu"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <ul class="sheet-menu">
-            <li><a href="#" class="btn-close-menu"><i class="fa-solid fa-house"></i> Inicio</a></li>
+            <li><a href="#" class="btn-close-menu" id="btn-home"><i class="fa-solid fa-house"></i> Inicio</a></li>
             <li class="has-submenu" id="catalog-dropdown">
                 <a href="#" class="dropdown-trigger">
-                    <span><i class="fa-solid fa-book-open"></i> Categorías</span>
+                    <span><i class="fa-solid fa-book-open"></i> Servicios</span>
                     <i class="fa-solid fa-chevron-down chevron"></i>
                 </a>
+                <ul class="submenu" id="catalog-submenu"></ul>
             </li>
-            
-            <li id="menu-auth-item"><a href="#" class="btn-open-auth"><i class="fa-solid fa-user-plus"></i> Registrarse / Iniciar Sesión</a></li>
-            <li id="menu-profile-item" style="display: none;"><a href="#" id="btn-open-profile"><i class="fa-solid fa-user-check"></i> Ver Perfil</a></li>
-            
+            <li id="menu-auth-item"><a href="#" class="btn-open-auth"><i class="fa-solid fa-user-plus"></i> Ingresar / Registrarse</a></li>
+            <li id="menu-profile-item" style="display: none;"><a href="#" id="btn-open-profile"><i class="fa-solid fa-user-check"></i> Tu Cuenta</a></li>
             <li><a href="#" id="btn-admin-access" style="display: none; color: var(--accent);"><i class="fa-solid fa-screwdriver-wrench"></i> Panel Admin</a></li>
-            <li><a href="#" id="btn-config"><i class="fa-solid fa-gear"></i> Configuración</a></li>
+            <li><a href="#" id="btn-config"><i class="fa-solid fa-gear"></i> Ajustes</a></li>
         </ul>
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
@@ -70,7 +70,7 @@
     <div id="page-product" class="side-page glass">
         <div class="page-header">
             <button class="icon-btn btn-back" data-target="page-product"><i class="fa-solid fa-chevron-left"></i></button>
-            <h3>Detalle</h3>
+            <h3>Detalle del Servicio</h3>
             <div style="width: 24px;"></div>
         </div>
         <div class="page-content">
@@ -87,21 +87,22 @@
                 </div>
                 <button id="btn-add-cart" class="primary-btn">Añadir al carrito</button>
             </div>
-            <button id="btn-wa-single" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp</button>
         </div>
     </div>
 
     <div id="page-cart" class="side-page glass">
         <div class="page-header">
             <button class="icon-btn btn-back" data-target="page-cart"><i class="fa-solid fa-chevron-left"></i></button>
-            <h3>Tu Carrito</h3>
+            <h3>Tus Compras</h3>
             <div style="width: 24px;"></div>
         </div>
         <div class="page-content" style="display: flex; flex-direction: column; height: calc(100vh - 60px);">
             <div id="cart-items" class="cart-items-container"></div>
             <div class="cart-footer">
                 <div class="cart-total"><span>Total:</span> <span id="cart-total-price">$ 0</span></div>
-                <button id="btn-wa-cart" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Enviar Pedido</button>
+                <button id="btn-wa-cart" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp</button>
+                <!-- Botón de Nequi Oculto como solicitaste -->
+                <button id="btn-nequi-checkout" class="primary-btn" style="display: none; background: #FF009A; margin-top: 10px;"><i class="fa-solid fa-money-bill-transfer"></i> Pagar con Nequi</button>
             </div>
         </div>
     </div>
@@ -109,24 +110,35 @@
     <div id="page-admin" class="side-page glass">
         <div class="page-header">
             <button class="icon-btn btn-back" data-target="page-admin"><i class="fa-solid fa-chevron-left"></i></button>
-            <h3>Panel</h3>
+            <h3>Gestor Uranium</h3>
             <div style="width: 24px;"></div>
         </div>
         <div class="page-content">
-            <div class="admin-form glass">
-                <h4 id="admin-form-title">Publicar Producto</h4>
+            <div class="admin-form glass" style="margin-bottom: 20px;">
+                <h4 id="admin-form-title" class="admin-form-title">Publicar Servicio</h4>
                 <input type="hidden" id="admin-id">
-                <input type="text" id="admin-img" placeholder="URL de Imagen" class="form-input">
-                <input type="text" id="admin-name" placeholder="Nombre del Producto" class="form-input">
+                <input type="text" id="admin-img" placeholder="URL del Logo/Imagen" class="form-input">
+                <input type="text" id="admin-name" placeholder="Nombre de Plataforma (Ej: Netflix)" class="form-input">
+                <input type="text" id="admin-category" placeholder="Categoría (Ej: Streaming Mensual)" class="form-input">
                 <input type="number" id="admin-price" placeholder="Precio" class="form-input">
-                <textarea id="admin-desc" placeholder="Descripción..." class="form-input"></textarea>
-                <button id="btn-save-product" class="primary-btn">Guardar Producto</button>
+                <textarea id="admin-desc" placeholder="Descripción de la cuenta..." class="form-input"></textarea>
+                <button id="btn-save-product" class="primary-btn">Guardar Servicio</button>
             </div>
-            <h4 style="margin-top: 10px">Tus Productos</h4>
+
+            <!-- Sección exclusiva para Súperadmin -->
+            <div id="superadmin-section" class="admin-form glass" style="display: none; margin-bottom: 20px; border-color: var(--accent);">
+                <h4 class="admin-form-title" style="color: var(--accent);">Roles y Permisos</h4>
+                <p style="font-size: 13px; color: var(--text-sec); margin-bottom: 10px;">Añade permisos de administrador a correos registrados.</p>
+                <input type="email" id="admin-subadmin-email" placeholder="Correo del usuario" class="form-input">
+                <button id="btn-add-subadmin" class="primary-btn" style="background: var(--accent);">Hacer Subadmin</button>
+            </div>
+
+            <h4 style="margin-top: 10px">Servicios Activos</h4>
             <div id="admin-product-list" class="admin-list"></div>
         </div>
     </div>
 
+    <!-- Modales de Autenticación y Nequi -->
     <div id="auth-modal" class="modal glass">
         <div class="modal-content glass auth-modal-content">
             <div class="sheet-header">
@@ -135,18 +147,43 @@
             </div>
             
             <div id="form-login">
-                <input type="text" id="login-user" placeholder="Usuario (ej: admin)" class="form-input">
-                <input type="password" id="login-pass" placeholder="Contraseña (ej: admin)" class="form-input">
+                <input type="email" id="login-email" placeholder="Correo" class="form-input">
+                <input type="password" id="login-pass" placeholder="Contraseña" class="form-input">
                 <button id="btn-login" class="primary-btn">Ingresar</button>
-                <p class="auth-toggle-text">¿No tienes cuenta? <a href="#" id="link-to-register">Regístrate aquí</a></p>
+                <p class="auth-toggle-text">¿Nuevo? <a href="#" id="link-to-register">Regístrate</a></p>
             </div>
 
             <div id="form-register" style="display: none;">
-                <input type="text" id="reg-user" placeholder="Nombre de Usuario" class="form-input">
-                <input type="email" id="reg-email" placeholder="Correo Electrónico" class="form-input">
+                <input type="text" id="reg-user" placeholder="Nombre" class="form-input">
+                <input type="email" id="reg-email" placeholder="Correo" class="form-input">
                 <input type="password" id="reg-pass" placeholder="Contraseña" class="form-input">
                 <button id="btn-register" class="primary-btn">Crear Cuenta</button>
-                <p class="auth-toggle-text">¿Ya tienes cuenta? <a href="#" id="link-to-login">Inicia sesión</a></p>
+                <p class="auth-toggle-text">¿Ya tienes cuenta? <a href="#" id="link-to-login">Entrar</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Nequi Oculto -->
+    <div id="nequi-modal" class="modal glass">
+        <div class="modal-content glass" style="border: 1px solid #FF009A;">
+            <div class="sheet-header">
+                <h3>Pago con Nequi</h3>
+                <button class="icon-btn btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div style="text-align: center; padding-top: 10px;">
+                <p>Transfiere a este número:</p>
+                <h2 style="color: #FF009A; font-size: 28px; margin: 10px 0; letter-spacing: 2px;">304 334 4577</h2>
+                <p>Total a pagar: <strong id="nequi-total-ui" style="color: var(--text-main);"></strong></p>
+                
+                <div style="margin: 25px 0;">
+                    <label for="nequi-receipt" class="primary-btn" style="background: #FF009A; display: block; cursor: pointer;">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Cargar Comprobante
+                    </label>
+                    <input type="file" id="nequi-receipt" accept="image/*" style="display: none;">
+                    <p id="receipt-name" style="font-size: 13px; margin-top: 8px; color: var(--accent);"></p>
+                </div>
+                
+                <button id="btn-confirm-nequi" class="primary-btn" disabled>Confirmar Pago</button>
             </div>
         </div>
     </div>
@@ -154,13 +191,13 @@
     <div id="profile-modal" class="modal glass">
         <div class="modal-content glass">
             <div class="sheet-header">
-                <h3>Tu Perfil</h3>
+                <h3>Tu Cuenta</h3>
                 <button class="icon-btn btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="profile-info">
-                <input type="text" id="profile-name" class="form-input" placeholder="Tu nombre">
-                <input type="email" id="profile-email" class="form-input" placeholder="Tu correo">
-                <button id="btn-update-profile" class="primary-btn" style="margin-bottom: 10px;">Actualizar Datos</button>
+                <input type="text" id="profile-name" class="form-input" disabled>
+                <input type="email" id="profile-email" class="form-input" disabled>
+                <p id="profile-role" style="text-align: center; margin-bottom: 15px; font-weight: bold; color: var(--accent);"></p>
                 <button id="btn-logout" class="primary-btn" style="background: var(--danger);">Cerrar Sesión</button>
             </div>
         </div>
@@ -169,7 +206,7 @@
     <div id="config-modal" class="modal glass">
         <div class="modal-content glass">
             <div class="sheet-header">
-                <h3>Configuración</h3>
+                <h3>Ajustes</h3>
                 <button class="icon-btn btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="setting-item">
@@ -179,6 +216,6 @@
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
